@@ -22,12 +22,15 @@ app.post('/todos', (req, res) => {
 
     newtodo.save().then((doc) => {
         res.send(doc)
-    },(e) => {
+    }, (e) => {
         res.status(400).send(e)
-    })
-    console.log(req.body);
+    });
 })
 
-app.listen(3000, () => {
+app.listen('3000', () => {
     console.log(`server connected to port 3000`);
 })
+
+module.exports = {
+    app
+};
