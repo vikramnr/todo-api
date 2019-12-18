@@ -1,3 +1,4 @@
+var env = process.env.NODE_ENV;
 const express = require('express');
 const bodyParser = require('body-parser');
 const {
