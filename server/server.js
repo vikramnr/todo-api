@@ -6,6 +6,7 @@ const {
 const {
     mongoose
 } = require('./db/mongoose');
+const _ = require('lodash');
 const {
     User
 } = require('./models/user');
@@ -72,11 +73,40 @@ app.delete('/todos/:id', (req, res) => {
         if (!todo) {
             return res.status(400).send();
         }
-        return res.status(200).send({todo});
+        return res.status(200).send({
+            todo
+        });
     }).catch((e) => {
         res.status(400).send();
     });
-})
+});
+
+app.patch('/todos/:id', (req, res) => {
+    let id = req.params.id;
+    var body = _.pick(req.body, ['text', 'completed']);
+
+    if (!ObjectID.isValid(id)) return res.status(404).send();
+
+    if (_.isBoolean(body.completed) && body.completed) {
+        if (body.completed === true) {
+            body.completedAt = new Date().getTime();
+        } else {
+            body.completed = false;
+            body.completedAt = null;
+        }
+    }
+
+    Todo.findByIdAndUpdate(id, {
+        $set: body
+    }, {
+        new: true
+    }).then((todo) => {
+        if (!todo) return res.status(404).send();
+        res.send({
+            todo
+        });
+    }).catch(e => res.status(404).send());
+});
 
 app.listen(port, () => {
     console.log(`server connected to port ${port}`);
