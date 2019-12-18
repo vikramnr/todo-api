@@ -16,7 +16,9 @@ const todos = [{
     text: 'Buy dog food'
 }, {
     _id: new ObjectID(),
-    text: 'Buy ring for weeding'
+    text: 'Buy ring for weeding',
+    completed: true,
+    completedAt: 3333
 }];
 
 beforeEach((done) => {
@@ -103,7 +105,39 @@ describe('DELETE /:id', () => {
     });
 
     it('should return 404 for invalid id', (done) => {
-        let id = new ObjectID().toHexString();
         request(app).delete('/todos/idsda').expect(404).end(done);
     });
+});
+
+describe('PATCH /todos/:id', () => {
+    it('should update todo with given data', (done) => {
+        let id = todos[0]._id;
+        let text = 'completed at now'
+        let completed = true;
+        request(app).patch(`/todos/${id}`).send({
+                text: text,
+                completed: completed
+            }).expect(200)
+            .expect((res) => {
+                expect(res.body.todo.text).toBe(text);
+                expect(res.body.todo.completed).toBe(true);
+                expect(typeof res.body.todo.completedAt).toBe('number');
+            }).end(done);
+    });
+
+    it('should toggle values of todo status', (done) => {
+        let id = todos[1]._id;
+        let text = 'new values has to bested';
+        
+        request(app).patch(`/todos/${id}`)
+            .send({
+                text: text,
+                completed: false
+            }).expect(200)
+            .expect((res) => {
+                expect(res.body.todo.text).toBe(text);
+                expect(res.body.todo.completed).toBeFalsy();
+                expect(res.body.todo.completedAt).toBe(null);
+            }).end(done);
+    })
 });
