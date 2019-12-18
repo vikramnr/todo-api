@@ -79,3 +79,31 @@ describe('POST /:id', () => {
         request(app).get('/todos/a12ss').expect(404).end(done)
     })
 })
+
+describe('DELETE /:id', () => {
+    it('should remove a todo', (done) => {
+        let id = todos[0]._id;
+        request(app).delete(`/todos/${id}`)
+            .expect(200)
+            .expect((res) => {
+                expect(res.body.todo.text).toBe(todos[0].text);
+            })
+            .end((err, res) => {
+                if (err) return done(err);
+                Todo.findById(id).then((res) => {
+                    expect(res).toBeFalsy();
+                    done();
+                }).catch(e => done(e));
+            });
+    });
+
+    it('should return 404 for todo not found', (done) => {
+        let id = new ObjectID().toHexString();
+        request(app).delete(`/todos/${id}`).expect(400).end(done);
+    });
+
+    it('should return 404 for invalid id', (done) => {
+        let id = new ObjectID().toHexString();
+        request(app).delete('/todos/idsda').expect(404).end(done);
+    });
+});
