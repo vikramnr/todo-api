@@ -18,6 +18,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
+app.get('/',(req, res) => {
+    res.redirect('/todos')
+});
+
 app.get('/todos', (req, res) => {
     Todo.find({}).then((todos) => {
         res.send({
