@@ -127,7 +127,7 @@ describe('PATCH /todos/:id', () => {
 
     it('should toggle values of todo status', (done) => {
         let id = todos[1]._id;
-        let text = 'new values has to bested';
+        let text = 'Buy cat food';
         
         request(app).patch(`/todos/${id}`)
             .send({

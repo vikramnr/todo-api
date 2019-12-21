@@ -1,4 +1,5 @@
-var env = process.env.NODE_ENV;
+require('./config/config');
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const {
@@ -16,10 +17,10 @@ const {
 } = require('./models/todo');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 app.use(bodyParser.json());
 
-app.get('/',(req, res) => {
+app.get('/', (req, res) => {
     res.redirect('/todos')
 });
 
