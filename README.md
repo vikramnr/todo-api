@@ -7,20 +7,23 @@ API is live [here](https://mysterious-mesa-01318.herokuapp.com/todos). Or you ca
 
 Follow the instructions below to set up the environment and run this project on your local machine.
 
-## Clone repository
+#### Clone repository
 $ git clone https://github.com/vikramnr/todo-api.git
 
     Install dependencies via NPM or Yarn
 
-## Install dependencies via npm
+#### Install dependencies via npm
 $ npm install
 
-## Install dependencies via yarn
+#### Install dependencies via yarn
 $ yarn install
 
-    Run the server with nodemon and open a browser to visit http://localhost:3000/.
+Run the server with nodemon and open a browser to visit 
 
-## Run server
-$ npm run dev
+    http://localhost:3000/.
+
+#### Run server
+
+    $ npm run dev
 
 Licensed under the MIT License.Copyright © 2017-present Vikram.
