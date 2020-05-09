@@ -1,4 +1,4 @@
-## Todo Api
+## Todo API
 Node.js API for managing To-do lists
 
 
