@@ -13,7 +13,7 @@ Follow the instructions below to set up the environment and run this project on 
     Clone this repository.
 
 ## Clone repository
-$ git clone https://github.com/Hsins/udemy_Yelp-Camp.git
+$ git clone https://github.com/vikramnr/todo-api.git
 
     Install dependencies via NPM or Yarn
 
